@@ -9,7 +9,7 @@
         "yield-link-backend"
       ],
       "source": [
-        "src/yield-link-frontend/dist"
+        "src/yield-link-frontend/out"
       ],
       "type": "assets",
       "workspace": "yield-link-frontend"
