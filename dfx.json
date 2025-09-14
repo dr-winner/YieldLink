@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "yield-link-backend": {
+      "main": "src/yield-link-backend/main.mo",
+      "type": "motoko"
+    },
+    "yield-link-frontend": {
+      "dependencies": [
+        "yield-link-backend"
+      ],
+      "source": [
+        "src/yield-link-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "yield-link-frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
