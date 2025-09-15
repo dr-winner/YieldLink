@@ -404,16 +404,16 @@ export default function PaymentsPage() {
 
               <OrganicCard title="Quick Actions" variant="subtle" className="p-6">
                 <div className="space-y-3">
-                  <AnimatedButton size="sm" className="w-full justify-start">
-                    <Download className="w-4 h-4 mr-2" />
+                  <AnimatedButton size="sm" className="w-full justify-start flex items-center gap-2">
+                    <Download className="w-4 h-4" />
                     Download Report
                   </AnimatedButton>
-                  <Button size="sm" variant="outline" className="w-full justify-start bg-transparent">
-                    <Eye className="w-4 h-4 mr-2" />
+                  <Button size="sm" variant="outline" className="w-full justify-start bg-transparent flex items-center gap-2">
+                    <Eye className="w-4 h-4" />
                     See All Payments
                   </Button>
-                  <Button size="sm" variant="outline" className="w-full justify-start bg-transparent">
-                    <Calendar className="w-4 h-4 mr-2" />
+                  <Button size="sm" variant="outline" className="w-full justify-start bg-transparent flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
                     Payment History
                   </Button>
                 </div>

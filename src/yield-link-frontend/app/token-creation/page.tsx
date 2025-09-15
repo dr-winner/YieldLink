@@ -354,9 +354,9 @@ export default function TokenCreationPage() {
                     disabled={
                       !produceData.name || !produceData.quantity || !produceData.harvestDate || !produceData.location
                     }
-                    className="px-8 py-6 text-lg"
+                    className="px-8 py-6 text-lg flex items-center gap-2"
                   >
-                    <Sparkles className="w-5 h-5 mr-2" />
+                    <Sparkles className="w-5 h-5" />
                     Generate Token & QR Code
                   </AnimatedButton>
                 </div>
@@ -496,12 +496,12 @@ export default function TokenCreationPage() {
                   <div className="space-y-6">
                     <OrganicCard title="Download & Share" variant="elevated" className="p-6">
                       <div className="space-y-4">
-                        <AnimatedButton className="w-full" onClick={downloadQR}>
-                          <Download className="w-4 h-4 mr-2" />
+                        <AnimatedButton className="w-full flex items-center gap-2" onClick={downloadQR}>
+                          <Download className="w-4 h-4" />
                           Download QR Code
                         </AnimatedButton>
-                        <Button variant="outline" className="w-full bg-transparent">
-                          <Eye className="w-4 h-4 mr-2" />
+                        <Button variant="outline" className="w-full bg-transparent flex items-center gap-2">
+                          <Eye className="w-4 h-4" />
                           Preview Token Page
                         </Button>
                       </div>

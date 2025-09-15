@@ -1,6 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import { loginWithInternetIdentity } from "@/lib/auth"
+import { connectPlug } from "@/lib/wallet"
+// @ts-ignore
+import { canisterId as backendCanisterId } from "../../../declarations/yield-link-backend"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -58,18 +62,31 @@ export function AuthOptions() {
   }
 
   const handleInternetIdentity = async () => {
-    setIsLoading(true)
+    try {
+      setIsLoading(true)
+      const session = await loginWithInternetIdentity()
+      toast({ title: "Internet Identity Connected", description: session.principalText })
+      window.location.href = "/dashboard"
+    } catch (e: any) {
+      toast({ title: "Internet Identity failed", description: String(e?.message ?? e), variant: "destructive" })
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
-    // Simulate Internet Identity authentication
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    toast({
-      title: "Connected with Internet Identity!",
-      description: "Secure authentication successful.",
-    })
-
-    window.location.href = "/dashboard"
-    setIsLoading(false)
+  const handlePlug = async () => {
+    try {
+      setIsLoading(true)
+      const host = process.env.NEXT_PUBLIC_DFX_HOST ?? "http://127.0.0.1:4943"
+      const wl = [String(backendCanisterId)]
+      const session = await connectPlug(wl, host)
+      toast({ title: "Plug Connected", description: session.principalText })
+      window.location.href = "/dashboard"
+    } catch (e: any) {
+      toast({ title: "Plug connection failed", description: String(e?.message ?? e), variant: "destructive" })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (step === "verify") {
@@ -208,6 +225,9 @@ export function AuthOptions() {
                   Connect with Internet Identity
                 </>
               )}
+            </Button>
+            <Button variant="outline" onClick={handlePlug} disabled={isLoading} className="w-full">
+              Connect Plug Wallet
             </Button>
           </TabsContent>
         </Tabs>

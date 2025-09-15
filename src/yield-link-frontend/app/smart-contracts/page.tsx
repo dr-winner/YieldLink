@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { getBackendActor } from "@/lib/ic-agent"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -124,6 +125,48 @@ export default function SmartContractsPage() {
   const [isDeploying, setIsDeploying] = useState(false)
   const [isDeployed, setIsDeployed] = useState(false)
 
+  // Backend stats
+  const [stats, setStats] = useState<
+    | {
+        totalAgreements: number
+        totalTokens: number
+        totalHandoffs: number
+        totalPayments: number
+        totalUsers: number
+      }
+    | null
+  >(null)
+  const [statsError, setStatsError] = useState<string | null>(null)
+  const [statsLoading, setStatsLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    let cancelled = false
+    const load = async () => {
+      try {
+        setStatsLoading(true)
+        const actor = await getBackendActor()
+        const res = await actor.getSystemStats()
+        if (cancelled) return
+        setStats({
+          totalAgreements: Number(res.totalAgreements),
+          totalTokens: Number(res.totalTokens),
+          totalHandoffs: Number(res.totalHandoffs),
+          totalPayments: Number(res.totalPayments),
+          totalUsers: Number(res.totalUsers),
+        })
+      } catch (e) {
+        if (cancelled) return
+        setStatsError("Failed to load stats")
+      } finally {
+        if (!cancelled) setStatsLoading(false)
+      }
+    }
+    load()
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   const updateStakeholderPercentage = (id: string, percentage: number) => {
     setContractTerms((prev) => ({
       ...prev,
@@ -166,10 +209,26 @@ export default function SmartContractsPage() {
 
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
+          {/* Backend Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+            {statsLoading ? (
+              <OrganicCard variant="subtle" className="p-4 col-span-full text-center">Loading network stats...</OrganicCard>
+            ) : statsError ? (
+              <OrganicCard variant="subtle" className="p-4 col-span-full text-center">{statsError}</OrganicCard>
+            ) : stats ? (
+              <>
+                <OrganicCard className="p-4 text-center"><div className="text-xs text-muted-foreground">Agreements</div><div className="text-xl font-semibold">{stats.totalAgreements}</div></OrganicCard>
+                <OrganicCard className="p-4 text-center"><div className="text-xs text-muted-foreground">Tokens</div><div className="text-xl font-semibold">{stats.totalTokens}</div></OrganicCard>
+                <OrganicCard className="p-4 text-center"><div className="text-xs text-muted-foreground">Handoffs</div><div className="text-xl font-semibold">{stats.totalHandoffs}</div></OrganicCard>
+                <OrganicCard className="p-4 text-center"><div className="text-xs text-muted-foreground">Payments</div><div className="text-xl font-semibold">{stats.totalPayments}</div></OrganicCard>
+                <OrganicCard className="p-4 text-center"><div className="text-xs text-muted-foreground">Users</div><div className="text-xl font-semibold">{stats.totalUsers}</div></OrganicCard>
+              </>
+            ) : null}
+          </div>
           {/* Back Button */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="mb-8">
-            <Button variant="ghost" asChild className="gap-2">
-              <Link href="/dashboard">
+            <Button variant="ghost" asChild>
+              <Link href="/dashboard" className="flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" />
                 Back to Dashboard
               </Link>
@@ -425,18 +484,17 @@ export default function SmartContractsPage() {
                       size="lg"
                       onClick={deployContract}
                       disabled={isDeploying || totalPercentage !== 100}
-                      className="w-full"
+                      className="w-full flex items-center justify-center gap-2"
                     >
                       {isDeploying ? (
                         <motion.div
                           animate={{ rotate: 360 }}
                           transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                          className="mr-2"
                         >
                           <Clock className="w-5 h-5" />
                         </motion.div>
                       ) : (
-                        <Zap className="w-5 h-5 mr-2" />
+                        <Zap className="w-5 h-5" />
                       )}
                       {isDeploying ? "Setting Up Payment..." : "Activate Payment Agreement"}
                     </AnimatedButton>

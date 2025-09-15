@@ -4,14 +4,16 @@ import { AnimatedButton } from "@/components/ui/animated-button"
 import { OrganicCard } from "@/components/ui/organic-card"
 import { Badge } from "@/components/ui/badge"
 import { YieldLinkLogo } from "@/components/ui/yieldlink-logo"
-import { motion } from "framer-motion"
+import { motion, easeOut } from "framer-motion"
+import { Boxes } from "@/components/ui/background-boxes"
+import { cn } from "@/lib/utils"
 import { Leaf, Shield, TrendingUp, Eye, ArrowRight, CheckCircle, Sprout, DollarSign, Truck, QrCode } from "lucide-react"
 import Link from "next/link"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: easeOut },
 }
 
 const staggerContainer = {
@@ -63,51 +65,58 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section with Animated Background Boxes */}
       <section className="py-20 px-4">
-        <div className="container mx-auto text-center">
-          <motion.div {...fadeInUp}>
-            <Badge variant="secondary" className="mb-6 px-4 py-2">
-              <Sprout className="w-4 h-4 mr-2" />
-              Fighting Unfair Food Prices
-            </Badge>
-          </motion.div>
+        <div className="container mx-auto">
+          <div className="relative w-full overflow-hidden bg-slate-900 rounded-2xl">
+            <div className="absolute inset-0 w-full h-full bg-slate-900 z-0 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+            <Boxes />
 
-          <motion.h1
-            className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-balance mb-6"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            Get <span className="text-primary">Fair Prices</span> for Your Crops
-          </motion.h1>
+            <div className="relative z-10 text-center px-4 py-16">
+              <motion.div {...fadeInUp}>
+                <Badge variant="secondary" className="mb-6 px-4 py-2">
+                  <Sprout className="w-4 h-4 mr-2" />
+                  Fighting Unfair Food Prices
+                </Badge>
+              </motion.div>
 
-          <motion.p
-            className="text-xl text-muted-foreground text-pretty max-w-3xl mx-auto mb-10"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            YieldLink helps farmers like you get paid fairly by tracking your crops from farm to store. No more
-            middlemen taking unfair cuts - you get what your hard work deserves.
-          </motion.p>
+              <motion.h1
+                className={cn("font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-balance mb-6 text-white")}
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                Get <span className="text-primary">Fair Prices</span> for Your Crops
+              </motion.h1>
 
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <AnimatedButton size="lg" className="px-8 py-6 text-lg" asChild>
-              <Link href="/auth">
-                Start Getting Fair Prices
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </AnimatedButton>
-            <AnimatedButton variant="outline" size="lg" className="px-8 py-6 text-lg" asChild>
-              <Link href="#demo">See How It Works</Link>
-            </AnimatedButton>
-          </motion.div>
+              <motion.p
+                className="text-xl text-neutral-300 text-pretty max-w-3xl mx-auto mb-10"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                YieldLink helps farmers like you get paid fairly by tracking your crops from farm to store. No more
+                middlemen taking unfair cuts - you get what your hard work deserves.
+              </motion.p>
+
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <AnimatedButton size="lg" className="px-8 py-6 text-lg" asChild>
+                  <Link href="/auth" className="flex items-center gap-2">
+                    Start Getting Fair Prices
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </AnimatedButton>
+                <AnimatedButton variant="outline" size="lg" className="px-8 py-6 text-lg" asChild>
+                  <Link href="#demo">See How It Works</Link>
+                </AnimatedButton>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -326,9 +335,9 @@ export default function HomePage() {
               Join thousands of farmers who are already earning more with YieldLink. It's free to start.
             </p>
             <AnimatedButton size="lg" className="px-8 py-6 text-lg" asChild>
-              <Link href="/auth">
+              <Link href="/auth" className="flex items-center gap-2">
                 Start Earning More Today
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5" />
               </Link>
             </AnimatedButton>
           </motion.div>

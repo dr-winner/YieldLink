@@ -164,9 +164,9 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <AnimatedButton asChild className="w-full">
-                    <Link href="/token-creation">
+                    <Link href="/token-creation" className="flex items-center gap-2">
                       Create Token
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight className="w-4 h-4" />
                     </Link>
                   </AnimatedButton>
                 </div>
@@ -185,9 +185,9 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <AnimatedButton variant="secondary" asChild className="w-full">
-                    <Link href="/tracking">
+                    <Link href="/tracking" className="flex items-center gap-2">
                       Track Produce
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight className="w-4 h-4" />
                     </Link>
                   </AnimatedButton>
                 </div>
@@ -206,9 +206,9 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <Button variant="outline" asChild className="w-full bg-transparent">
-                    <Link href="/smart-contracts">
+                    <Link href="/smart-contracts" className="flex items-center gap-2">
                       Manage Contracts
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight className="w-4 h-4" />
                     </Link>
                   </Button>
                 </div>
@@ -283,9 +283,9 @@ export default function DashboardPage() {
 
               <div className="flex justify-center mt-8">
                 <AnimatedButton variant="outline" asChild>
-                  <Link href="/payments">
+                  <Link href="/payments" className="flex items-center gap-2">
                     View Payment Dashboard
-                    <DollarSign className="w-4 h-4 ml-2" />
+                    <DollarSign className="w-4 h-4" />
                   </Link>
                 </AnimatedButton>
               </div>
