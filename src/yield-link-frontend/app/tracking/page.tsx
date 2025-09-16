@@ -58,16 +58,16 @@ const mockProduceData: ProduceInfo = {
   quantity: "25",
   unit: "kg",
   harvestDate: "2024-01-15",
-  farmer: "Green Valley Farm",
-  farmLocation: "Salinas, CA, USA",
-  certifications: ["USDA Organic", "Non-GMO", "Fair Trade"],
+  farmer: "Kumasi Organic Farms",
+  farmLocation: "Kumasi, Ashanti Region, Ghana",
+  certifications: ["Ghana Organic", "Non-GMO", "Fair Trade"],
   currentStatus: "In Transit to Retailer",
   handoffs: [
     {
       id: "1",
       type: "farmer",
-      name: "Green Valley Farm",
-      location: "Salinas, CA, USA",
+      name: "Kumasi Organic Farms",
+      location: "Kumasi, Ashanti Region, Ghana",
       timestamp: "2024-01-15T08:00:00Z",
       temperature: "18°C",
       notes: "Freshly harvested at optimal ripeness",
@@ -76,8 +76,8 @@ const mockProduceData: ProduceInfo = {
     {
       id: "2",
       type: "distributor",
-      name: "Fresh Logistics Co.",
-      location: "San Francisco, CA, USA",
+      name: "Accra Fresh Logistics",
+      location: "Accra, Greater Accra Region, Ghana",
       timestamp: "2024-01-16T14:30:00Z",
       temperature: "4°C",
       notes: "Quality inspection passed. Refrigerated transport initiated.",
@@ -86,8 +86,8 @@ const mockProduceData: ProduceInfo = {
     {
       id: "3",
       type: "retailer",
-      name: "Organic Market Plus",
-      location: "Los Angeles, CA, USA",
+      name: "Tamale Market Hub",
+      location: "Tamale, Northern Region, Ghana",
       timestamp: "2024-01-17T09:15:00Z",
       temperature: "6°C",
       notes: "Received in excellent condition. Ready for display.",
@@ -158,7 +158,7 @@ export default function TrackingPage() {
       <header className="border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/dashboard">
+            <Link href="/dashboard/">
               <YieldLinkLogo />
             </Link>
 
@@ -415,10 +415,10 @@ export default function TrackingPage() {
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <AnimatedButton asChild>
-                    <Link href="/smart-contracts">View Payment Agreement</Link>
+                    <Link href="/smart-contracts/">View Payment Agreement</Link>
                   </AnimatedButton>
                   <Button variant="outline" asChild>
-                    <Link href="/dashboard">Back to Dashboard</Link>
+                    <Link href="/dashboard/">Back to Dashboard</Link>
                   </Button>
                 </div>
               </motion.div>

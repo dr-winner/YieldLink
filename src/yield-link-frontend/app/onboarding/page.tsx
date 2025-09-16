@@ -257,7 +257,7 @@ export default function OnboardingPage() {
                     id="farmName"
                     value={formData.farmInfo.farmName}
                     onChange={(e) => updateFormData("farmInfo", "farmName", e.target.value)}
-                    placeholder="Green Valley Farm"
+                    placeholder="Kumasi Organic Farms"
                   />
                 </div>
                 <div className="space-y-2">
@@ -266,7 +266,7 @@ export default function OnboardingPage() {
                     id="location"
                     value={formData.farmInfo.location}
                     onChange={(e) => updateFormData("farmInfo", "location", e.target.value)}
-                    placeholder="City, State, Country"
+                    placeholder="Kumasi, Ashanti Region, Ghana"
                   />
                 </div>
               </div>
@@ -292,7 +292,7 @@ export default function OnboardingPage() {
                     id="cropTypes"
                     value={formData.farmInfo.cropTypes}
                     onChange={(e) => updateFormData("farmInfo", "cropTypes", e.target.value)}
-                    placeholder="Tomatoes, Corn, Wheat..."
+                    placeholder="Tomatoes, Cassava, Plantain, Yam..."
                   />
                 </div>
               </div>
@@ -415,10 +415,10 @@ export default function OnboardingPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <AnimatedButton size="lg" asChild>
-                <Link href="/dashboard">Go to Dashboard</Link>
+                <Link href="/dashboard/">Go to Dashboard</Link>
               </AnimatedButton>
               <AnimatedButton variant="outline" size="lg" asChild>
-                <Link href="/token-creation">Create First Token</Link>
+                <Link href="/token-creation/">Create First Token</Link>
               </AnimatedButton>
             </div>
           </motion.div>

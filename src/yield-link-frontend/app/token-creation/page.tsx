@@ -111,7 +111,7 @@ export default function TokenCreationPage() {
       <header className="border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/dashboard" className="flex items-center gap-2">
+            <Link href="/dashboard/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Leaf className="w-5 h-5 text-primary-foreground" />
               </div>
@@ -133,7 +133,7 @@ export default function TokenCreationPage() {
           {/* Back Button */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="mb-8">
             <Button variant="ghost" asChild className="gap-2">
-              <Link href="/dashboard">
+              <Link href="/dashboard/">
                 <ArrowLeft className="w-4 h-4" />
                 Back to Dashboard
               </Link>
@@ -550,10 +550,10 @@ export default function TokenCreationPage() {
 
                     <div className="flex flex-col gap-3">
                       <AnimatedButton asChild>
-                        <Link href="/smart-contracts">Setup Smart Contract</Link>
+                        <Link href="/smart-contracts/">Setup Smart Contract</Link>
                       </AnimatedButton>
                       <Button variant="outline" asChild>
-                        <Link href="/dashboard">Back to Dashboard</Link>
+                        <Link href="/dashboard/">Back to Dashboard</Link>
                       </Button>
                     </div>
                   </div>

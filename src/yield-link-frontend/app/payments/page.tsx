@@ -58,7 +58,7 @@ const mockPaymentEvents: PaymentEvent[] = [
     id: "2",
     type: "distribution",
     amount: 750,
-    recipient: "Green Valley Farm",
+    recipient: "Kumasi Organic Farms",
     recipientRole: "farmer",
     timestamp: "2024-01-17T15:31:00Z",
     status: "completed",
@@ -68,7 +68,7 @@ const mockPaymentEvents: PaymentEvent[] = [
     id: "3",
     type: "distribution",
     amount: 312.5,
-    recipient: "Fresh Logistics Co.",
+    recipient: "Accra Fresh Logistics",
     recipientRole: "distributor",
     timestamp: "2024-01-17T15:31:15Z",
     status: "completed",
@@ -78,7 +78,7 @@ const mockPaymentEvents: PaymentEvent[] = [
     id: "4",
     type: "distribution",
     amount: 150,
-    recipient: "Organic Market Plus",
+    recipient: "Tamale Market Hub",
     recipientRole: "retailer",
     timestamp: "2024-01-17T15:31:30Z",
     status: "completed",
@@ -176,7 +176,7 @@ export default function PaymentsPage() {
       <header className="border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/dashboard">
+            <Link href="/dashboard/">
               <YieldLinkLogo />
             </Link>
 
@@ -195,7 +195,7 @@ export default function PaymentsPage() {
           {/* Back Button */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="mb-8">
             <Button variant="ghost" asChild className="gap-2">
-              <Link href="/dashboard">
+              <Link href="/dashboard/">
                 <ArrowLeft className="w-4 h-4" />
                 Back to Dashboard
               </Link>
@@ -368,9 +368,9 @@ export default function PaymentsPage() {
               <OrganicCard title="Who Got Paid" variant="elevated" className="p-6">
                 <div className="space-y-4">
                   {[
-                    { name: "Green Valley Farm", role: "farmer", amount: 750, percentage: 60 },
-                    { name: "Fresh Logistics Co.", role: "distributor", amount: 312.5, percentage: 25 },
-                    { name: "Organic Market Plus", role: "retailer", amount: 150, percentage: 12 },
+                    { name: "Kumasi Organic Farms", role: "farmer", amount: 750, percentage: 60 },
+                    { name: "Accra Fresh Logistics", role: "distributor", amount: 312.5, percentage: 25 },
+                    { name: "Tamale Market Hub", role: "retailer", amount: 150, percentage: 12 },
                     { name: "YieldLink Platform", role: "platform", amount: 37.5, percentage: 3 },
                   ].map((stakeholder, index) => (
                     <motion.div

@@ -16,7 +16,7 @@ export default function AuthPage() {
         >
           <YieldLinkLogo size="lg" className="justify-center mb-4" />
           <h1 className="text-2xl font-heading font-bold mb-2">Welcome to YieldLink</h1>
-          <p className="text-muted-foreground">Get fair prices for your crops and track them from farm to table</p>
+          <p className="text-muted-foreground">Join a fair, transparent supply chain for all stakeholders</p>
         </motion.div>
 
         <motion.div

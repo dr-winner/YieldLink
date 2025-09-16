@@ -58,7 +58,7 @@ export default function HomePage() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <AnimatedButton asChild>
-                <Link href="/auth">Join YieldLink</Link>
+                <Link href="/auth/">Join YieldLink</Link>
               </AnimatedButton>
             </motion.div>
           </div>
@@ -73,12 +73,12 @@ export default function HomePage() {
             <Boxes />
 
             <div className="relative z-10 text-center px-4 py-16">
-              <motion.div {...fadeInUp}>
+              {/* <motion.div {...fadeInUp}>
                 <Badge variant="secondary" className="mb-6 px-4 py-2">
                   <Sprout className="w-4 h-4 mr-2" />
                   Fighting Unfair Food Prices
                 </Badge>
-              </motion.div>
+              </motion.div> */}
 
               <motion.h1
                 className={cn("font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-balance mb-6 text-white")}
@@ -106,7 +106,7 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <AnimatedButton size="lg" className="px-8 py-6 text-lg" asChild>
-                  <Link href="/auth" className="flex items-center gap-2">
+                  <Link href="/auth/" className="flex items-center gap-2">
                     Start Getting Fair Prices
                     <ArrowRight className="w-5 h-5" />
                   </Link>
@@ -130,9 +130,9 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">How YieldLink Helps You</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">How YieldLink Helps Everyone</h2>
             <p className="text-xl text-muted-foreground text-pretty max-w-2xl mx-auto">
-              Simple tools that put more money in your pocket
+              Fair tools that benefit every stakeholder in the supply chain
             </p>
           </motion.div>
 
@@ -146,35 +146,35 @@ export default function HomePage() {
             {[
               {
                 icon: DollarSign,
-                title: "Get Paid Instantly",
+                title: "Fair Payments",
                 description:
-                  "Money goes straight to your account when your crops are sold - no waiting weeks for payment.",
+                  "Everyone gets paid their fair share automatically - farmers, distributors, retailers, and platform.",
               },
               {
                 icon: Eye,
-                title: "Track Your Crops",
-                description: "See exactly where your produce goes and who buys it, from your farm to the dinner table.",
+                title: "Full Transparency",
+                description: "Track produce from farm to table with complete visibility for all stakeholders.",
               },
               {
                 icon: Shield,
                 title: "Secure & Safe",
-                description: "Your information and payments are protected with the same technology banks use.",
+                description: "Your information and payments are protected with blockchain technology.",
               },
               {
                 icon: QrCode,
-                title: "Easy QR Codes",
-                description: "Just scan a code to register your crops - as simple as taking a photo with your phone.",
+                title: "Easy Tracking",
+                description: "Simple QR codes make it easy to verify and track produce at every step.",
               },
               {
                 icon: Truck,
-                title: "Fair Distribution",
+                title: "Quality Assurance",
                 description:
-                  "Everyone in the supply chain gets their fair share - no more middlemen taking extra cuts.",
+                  "Temperature logs and quality checks ensure produce stays fresh throughout the journey.",
               },
               {
                 icon: TrendingUp,
-                title: "Better Profits",
-                description: "Farmers using YieldLink typically earn 40% more than traditional selling methods.",
+                title: "Better for Everyone",
+                description: "All stakeholders benefit - farmers earn more, consumers get quality, everyone wins.",
               },
             ].map((feature, index) => (
               <motion.div key={index} variants={fadeInUp}>
@@ -206,7 +206,7 @@ export default function HomePage() {
           >
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">How It Works</h2>
             <p className="text-xl text-muted-foreground text-pretty max-w-2xl mx-auto">
-              Four simple steps to start getting fair prices for your crops
+              Four simple steps to create a fair, transparent supply chain
             </p>
           </motion.div>
 
@@ -220,23 +220,23 @@ export default function HomePage() {
             {[
               {
                 step: "01",
-                title: "Sign Up",
-                description: "Create your account with your email, phone, or secure login - takes just 2 minutes.",
+                title: "Choose Your Role",
+                description: "Sign up as a farmer, distributor, retailer, or consumer - everyone is welcome.",
               },
               {
                 step: "02",
-                title: "Register Your Crops",
-                description: "Take photos and add details about what you're growing - we'll create QR codes for you.",
+                title: "Register Produce",
+                description: "Farmers register crops with QR codes, others verify and track the journey.",
               },
               {
                 step: "03",
-                title: "Track the Journey",
-                description: "Watch your crops move through the supply chain and see who's handling them.",
+                title: "Track & Verify",
+                description: "All stakeholders can track produce movement and verify quality at each step.",
               },
               {
                 step: "04",
-                title: "Get Paid Fairly",
-                description: "Money is automatically split fairly between everyone when your crops are sold.",
+                title: "Fair Distribution",
+                description: "Payments are automatically distributed fairly to all stakeholders when produce is sold.",
               },
             ].map((step, index) => (
               <motion.div key={index} variants={fadeInUp}>
@@ -263,9 +263,9 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">Real Results from Real Farmers</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">Real Results from Real Stakeholders</h2>
             <p className="text-xl text-muted-foreground text-pretty max-w-2xl mx-auto">
-              See how YieldLink is helping farmers across the country
+              See how YieldLink is helping everyone in Ghana's food supply chain
             </p>
           </motion.div>
 
@@ -277,14 +277,14 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
           >
             <div>
-              <h3 className="font-heading font-bold text-2xl mb-6">What Farmers Are Saying</h3>
+              <h3 className="font-heading font-bold text-2xl mb-6">What Stakeholders Are Saying</h3>
               <div className="space-y-4">
                 {[
-                  '"I get paid the same day my tomatoes are sold"',
-                  '"No more waiting weeks for my money"',
-                  '"I can see exactly where my corn ends up"',
-                  '"My profits increased by $15,000 last season"',
-                  '"Finally, a fair deal for small farmers like me"',
+                  '"Farmers get paid the same day produce is sold"',
+                  '"Distributors can verify quality at every step"',
+                  '"Retailers know exactly where their produce comes from"',
+                  '"Consumers trust the quality and traceability"',
+                  '"Everyone gets their fair share automatically"',
                 ].map((benefit, index) => (
                   <motion.div
                     key={index}
@@ -330,13 +330,13 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">Ready to Get Fair Prices?</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">Ready to Join the Fair Supply Chain?</h2>
             <p className="text-xl text-muted-foreground text-pretty max-w-2xl mx-auto mb-10">
-              Join thousands of farmers who are already earning more with YieldLink. It's free to start.
+              Join thousands of Ghanaian stakeholders who are already benefiting from YieldLink. It's free to start.
             </p>
             <AnimatedButton size="lg" className="px-8 py-6 text-lg" asChild>
-              <Link href="/auth" className="flex items-center gap-2">
-                Start Earning More Today
+              <Link href="/auth/" className="flex items-center gap-2">
+                Join the Supply Chain Today
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </AnimatedButton>
@@ -350,7 +350,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <YieldLinkLogo className="mb-4 md:mb-0" />
             <p className="text-muted-foreground text-center md:text-right">
-              © 2024 YieldLink. Helping farmers get fair prices for their hard work.
+              © 2025 YieldLink. Creating a fair, transparent supply chain for all farmers and stakeholders.
             </p>
           </div>
         </div>

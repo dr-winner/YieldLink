@@ -48,21 +48,21 @@ interface ContractTerms {
 const defaultStakeholders: Stakeholder[] = [
   {
     id: "1",
-    name: "Green Valley Farm",
+    name: "Kumasi Organic Farms",
     role: "farmer",
     percentage: 60,
     address: "0x1234...5678",
   },
   {
     id: "2",
-    name: "Fresh Logistics Co.",
+    name: "Accra Fresh Logistics",
     role: "distributor",
     percentage: 25,
     address: "0x2345...6789",
   },
   {
     id: "3",
-    name: "Organic Market Plus",
+    name: "Tamale Market Hub",
     role: "retailer",
     percentage: 12,
     address: "0x3456...7890",
@@ -193,7 +193,7 @@ export default function SmartContractsPage() {
       <header className="border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/dashboard">
+            <Link href="/dashboard/">
               <YieldLinkLogo />
             </Link>
 
@@ -228,7 +228,7 @@ export default function SmartContractsPage() {
           {/* Back Button */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="mb-8">
             <Button variant="ghost" asChild>
-              <Link href="/dashboard" className="flex items-center gap-2">
+              <Link href="/dashboard/" className="flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" />
                 Back to Dashboard
               </Link>
@@ -558,10 +558,10 @@ export default function SmartContractsPage() {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <AnimatedButton asChild>
-                    <Link href="/payments">See Payment Status</Link>
+                    <Link href="/payments/">See Payment Status</Link>
                   </AnimatedButton>
                   <Button variant="outline" asChild>
-                    <Link href="/dashboard">Back to Dashboard</Link>
+                    <Link href="/dashboard/">Back to Dashboard</Link>
                   </Button>
                 </div>
               </motion.div>

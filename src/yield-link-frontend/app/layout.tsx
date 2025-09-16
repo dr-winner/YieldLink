@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter, Work_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import { Providers } from "./providers"
 import "./globals.css"
 
 const inter = Inter({
@@ -31,8 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable} ${workSans.variable} antialiased`}>
-        <Suspense fallback={null}>{children}</Suspense>
-        <Analytics />
+        <Providers>
+          <Suspense fallback={null}>{children}</Suspense>
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )

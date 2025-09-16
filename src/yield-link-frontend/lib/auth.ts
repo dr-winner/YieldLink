@@ -12,31 +12,43 @@ export async function loginWithInternetIdentity(options?: {
   onSuccess?: (session: Session) => void;
   onError?: (err: unknown) => void;
 }): Promise<Session> {
-  const client = await AuthClient.create();
-  const identityProvider =
-    options?.identityProvider ?? process.env.NEXT_PUBLIC_II_PROVIDER ?? "https://identity.ic0.app";
+  try {
+    console.log("Creating Internet Identity client...");
+    const client = await AuthClient.create();
+    const identityProvider =
+      options?.identityProvider ?? process.env.NEXT_PUBLIC_II_PROVIDER ?? "https://identity.ic0.app";
+    
+    console.log("Using identity provider:", identityProvider);
 
-  return new Promise<Session>((resolve, reject) => {
-    client.login({
-      identityProvider,
-      onSuccess: async () => {
-        try {
-          const identity = client.getIdentity();
-          const principal = identity.getPrincipal();
-          const session: Session = { principalText: principal.toText(), isAuthenticated: true };
-          options?.onSuccess?.(session);
-          resolve(session);
-        } catch (e) {
-          options?.onError?.(e);
-          reject(e);
-        }
-      },
-      onError: (err) => {
-        options?.onError?.(err);
-        reject(err);
-      },
+    return new Promise<Session>((resolve, reject) => {
+      client.login({
+        identityProvider,
+        onSuccess: async () => {
+          try {
+            console.log("Internet Identity login successful");
+            const identity = client.getIdentity();
+            const principal = identity.getPrincipal();
+            const session: Session = { principalText: principal.toText(), isAuthenticated: true };
+            console.log("Principal obtained:", principal.toText());
+            options?.onSuccess?.(session);
+            resolve(session);
+          } catch (e) {
+            console.error("Error getting principal:", e);
+            options?.onError?.(e);
+            reject(e);
+          }
+        },
+        onError: (err) => {
+          console.error("Internet Identity login error:", err);
+          options?.onError?.(err);
+          reject(err);
+        },
+      });
     });
-  });
+  } catch (error) {
+    console.error("Failed to create Internet Identity client:", error);
+    throw new Error(`Failed to initialize Internet Identity: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
 
 export async function logoutInternetIdentity(): Promise<void> {

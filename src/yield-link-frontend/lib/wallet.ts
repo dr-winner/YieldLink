@@ -23,15 +23,30 @@ export interface WalletSession {
 
 export async function connectPlug(whitelist: string[], host?: string): Promise<WalletSession> {
   if (!window.ic?.plug) {
-    throw new Error("Plug wallet not detected. Install Plug extension.");
+    throw new Error("Plug wallet not detected. Please install the Plug extension from https://plugwallet.ooo/");
   }
-  const connection = await window.ic.plug.isConnected();
-  if (!connection) {
-    await window.ic.plug.requestConnect({ whitelist, host });
+  
+  try {
+    const connection = await window.ic.plug.isConnected();
+    console.log("Plug connection status:", connection);
+    
+    if (!connection) {
+      console.log("Requesting Plug connection with whitelist:", whitelist, "host:", host);
+      await window.ic.plug.requestConnect({ whitelist, host });
+    }
+    
+    console.log("Creating Plug agent...");
+    await window.ic.plug.createAgent({ whitelist, host });
+    
+    console.log("Getting principal...");
+    const principal = await window.ic.plug.getPrincipal();
+    console.log("Principal obtained:", principal.toText());
+    
+    return { principalText: principal.toText(), connected: true };
+  } catch (error) {
+    console.error("Plug connection error:", error);
+    throw new Error(`Failed to connect Plug wallet: ${error instanceof Error ? error.message : String(error)}`);
   }
-  await window.ic.plug.createAgent({ whitelist, host });
-  const principal = await window.ic.plug.getPrincipal();
-  return { principalText: principal.toText(), connected: true };
 }
 
 

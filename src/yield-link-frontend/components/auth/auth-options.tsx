@@ -1,10 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { loginWithInternetIdentity } from "@/lib/auth"
 import { connectPlug } from "@/lib/wallet"
-// @ts-ignore
-import { canisterId as backendCanisterId } from "../../../declarations/yield-link-backend"
+import { useRole } from "@/lib/role-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,15 +11,31 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Mail, Phone, Shield, CheckCircle, Loader2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { RoleSelection, StakeholderRole } from "./role-selection"
 
 export function AuthOptions() {
   const [isLoading, setIsLoading] = useState(false)
-  const [step, setStep] = useState<"choose" | "verify">("choose")
+  const [step, setStep] = useState<"role" | "auth" | "verify">("role")
   const [authMethod, setAuthMethod] = useState<"email" | "phone" | "internet-identity">("email")
+  const [selectedRole, setSelectedRole] = useState<StakeholderRole | null>(null)
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [otp, setOtp] = useState("")
+  const [hasPlugWallet, setHasPlugWallet] = useState(false)
   const { toast } = useToast()
+  const { setRole } = useRole()
+
+  useEffect(() => {
+    setHasPlugWallet(typeof window !== "undefined" && !!window.ic?.plug)
+  }, [])
+
+  const handleRoleSelect = (role: StakeholderRole) => {
+    console.log("handleRoleSelect called with role:", role)
+    setSelectedRole(role)
+    setRole(role) // Store role in context
+    setStep("auth")
+    console.log("Step changed to auth, selectedRole set to:", role)
+  }
 
   const handleSendOTP = async () => {
     setIsLoading(true)
@@ -64,10 +79,13 @@ export function AuthOptions() {
   const handleInternetIdentity = async () => {
     try {
       setIsLoading(true)
+      console.log("Starting Internet Identity login...")
       const session = await loginWithInternetIdentity()
-      toast({ title: "Internet Identity Connected", description: session.principalText })
+      console.log("Internet Identity session:", session)
+      toast({ title: "Internet Identity Connected", description: `Principal: ${session.principalText}` })
       window.location.href = "/dashboard"
     } catch (e: any) {
+      console.error("Internet Identity error:", e)
       toast({ title: "Internet Identity failed", description: String(e?.message ?? e), variant: "destructive" })
     } finally {
       setIsLoading(false)
@@ -77,12 +95,16 @@ export function AuthOptions() {
   const handlePlug = async () => {
     try {
       setIsLoading(true)
+      console.log("Starting Plug wallet connection...")
       const host = process.env.NEXT_PUBLIC_DFX_HOST ?? "http://127.0.0.1:4943"
-      const wl = [String(backendCanisterId)]
+      const wl = [process.env.NEXT_PUBLIC_YIELD_LINK_BACKEND_CANISTER_ID ?? "uxrrr-q7777-77774-qaaaq-cai"]
+      console.log("Plug connection params:", { host, whitelist: wl })
       const session = await connectPlug(wl, host)
-      toast({ title: "Plug Connected", description: session.principalText })
+      console.log("Plug session:", session)
+      toast({ title: "Plug Connected", description: `Principal: ${session.principalText}` })
       window.location.href = "/dashboard"
     } catch (e: any) {
+      console.error("Plug connection error:", e)
       toast({ title: "Plug connection failed", description: String(e?.message ?? e), variant: "destructive" })
     } finally {
       setIsLoading(false)
@@ -126,9 +148,22 @@ export function AuthOptions() {
             )}
           </Button>
 
-          <Button variant="ghost" onClick={() => setStep("choose")} className="w-full">
+          <Button variant="ghost" onClick={() => setStep("auth")} className="w-full">
             Back to login options
           </Button>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (step === "role") {
+    return (
+      <Card className="w-full max-w-2xl mx-auto">
+        <CardContent className="p-6">
+          <RoleSelection 
+            onRoleSelect={handleRoleSelect} 
+            onBack={() => window.location.href = "/"} 
+          />
         </CardContent>
       </Card>
     )
@@ -137,7 +172,7 @@ export function AuthOptions() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="text-center">
-        <CardTitle>Join YieldLink</CardTitle>
+        <CardTitle>Join YieldLink as {selectedRole ? selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1) : ""}</CardTitle>
         <CardDescription>Choose how you'd like to sign in. It's quick and secure!</CardDescription>
       </CardHeader>
       <CardContent>
@@ -212,6 +247,9 @@ export function AuthOptions() {
               <p className="text-sm text-muted-foreground">
                 Use Internet Identity for the most secure login experience
               </p>
+              <p className="text-xs text-muted-foreground">
+                Make sure dfx is running locally for development
+              </p>
             </div>
             <Button onClick={handleInternetIdentity} disabled={isLoading} className="w-full">
               {isLoading ? (
@@ -226,11 +264,29 @@ export function AuthOptions() {
                 </>
               )}
             </Button>
-            <Button variant="outline" onClick={handlePlug} disabled={isLoading} className="w-full">
-              Connect Plug Wallet
+            <Button 
+              variant="outline" 
+              onClick={handlePlug} 
+              disabled={isLoading || !hasPlugWallet} 
+              className="w-full"
+            >
+              {!hasPlugWallet ? "Install Plug Wallet First" : "Connect Plug Wallet"}
             </Button>
+            {!hasPlugWallet && (
+              <p className="text-xs text-muted-foreground text-center">
+                <a href="https://plugwallet.ooo/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  Download Plug Wallet Extension
+                </a>
+              </p>
+            )}
           </TabsContent>
         </Tabs>
+        
+        <div className="mt-4">
+          <Button variant="ghost" onClick={() => setStep("role")} className="w-full">
+            ← Back to role selection
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )
